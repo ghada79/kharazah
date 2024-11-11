@@ -5,12 +5,7 @@ const String jsonPatch = 'assets/json/';
 const String language = 'lib/config/language';
 
 abstract class ImageAssets {
-  static const String party = '${imagesPath}party.png';
-  static const String party2 = '${imagesPath}party2.png';
-  static const String logo = '${iconsPath}logo.png';
-  static const String logo2 = 'assets/images/logo2.png';
-  static const String backgroundAvatar = '${imagesPath}avatar.png';
-  static const String tableG4 = '${imagesPath}tableG4.jpg';
+  static const String cake = '${imagesPath}cake.png';
 
 }
 

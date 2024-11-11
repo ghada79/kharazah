@@ -49,6 +49,7 @@ class HomeScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             SizedBox(height: 16.h),
             ShaderMask(
@@ -98,10 +99,30 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 16.h,),
-            ListView.builder(
+            Text('Hope Collection' , style: getBoldStyle(color: ColorManager.black , fontSize: 24),),
+            SizedBox(height: 16.h,),
+            Expanded(
+              flex: 1,
+              child: ListView.separated(
+                  separatorBuilder: (context, index) => SizedBox(width: 16.w,),
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 6,
+                  itemBuilder: (context, index) => ItemOfListview(),
+              ),
+            ),
+            SizedBox(height: 16.h,),
+            Text('Hope Collection' , style: getBoldStyle(color: ColorManager.black , fontSize: 24),),
+            SizedBox(height: 16.h,),
+            Expanded(
+              flex: 1,
+              child: ListView.separated(
+                separatorBuilder: (context, index) => SizedBox(width: 16.w,),
+                scrollDirection: Axis.horizontal,
                 itemCount: 6,
                 itemBuilder: (context, index) => ItemOfListview(),
+              ),
             ),
+
           ],
         ),
       ),
