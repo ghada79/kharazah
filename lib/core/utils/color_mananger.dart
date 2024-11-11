@@ -2,8 +2,8 @@
 import 'dart:ui';
 
 abstract class ColorManager {
-  static const Color primary = Color(0xFF203864);
-  static const Color secondaryPrimary = Color(0xFF040D12);
+  static const Color primary = Color(0xFF8F2882);
+  static const Color secondaryPrimary = Color(0xFFF36DFA);
   static const Color darkPrimary = Color(0xFF204624);
   static const Color white = Color(0xFFfafafa);
   static const Color iceWhite = Color(0xFFEDEDED);
@@ -17,15 +17,5 @@ abstract class ColorManager {
   static const Color black = Color(0xFF000000);
   static const Color skyBlue = Color(0xFFDFE7F5);
 
-  static Color getGradeColor(String? grade) {
-    switch (grade) {
-      case 'ضعيف':
-        return red;
-      case 'ضعيف جدا':
-        return red;
-      default:
-        return lightGreen;
-    }
-  }
 }
 

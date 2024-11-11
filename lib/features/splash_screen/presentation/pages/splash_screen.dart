@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../config/routes/routes.dart';
-import '../../../../core/utils/assets_manager.dart';
 import '../../../../core/utils/color_mananger.dart';
+import '../../../../core/utils/styles_manager.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -25,14 +25,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorManager.white,
+      backgroundColor: ColorManager.primary,
       body: Center(
-          child: Image.asset(
-            ImageAssets.logo,
-            width: 250.w,
-            height: 250.h,
-          ),
-      ),
+          child: Text('Kharazah', style: getBoldStyle(color: ColorManager.white, fontSize: 32.sp),)),
     );
   }
 }
