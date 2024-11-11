@@ -17,7 +17,7 @@ class ItemOfListview extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Image.asset(ImageAssets.cake , height: 20, width:150.w,)
+          Image.network("assets/images/cake.png", height: 20, width:150.w,)
         ],
       ),
     );
