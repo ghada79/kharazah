@@ -1,17 +1,24 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
-class CakeOption extends StatelessWidget {
+class CakeOption extends StatefulWidget {
   final Image image;
   final String title;
   final String price;
 
   const CakeOption({
-    Key? key,
+    super.key,
     required this.title,
     required this.price,
     required this.image,
-  }) : super(key: key);
+  });
 
+  @override
+  State<CakeOption> createState() => _CakeOptionState();
+}
+
+class _CakeOptionState extends State<CakeOption> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,16 +30,21 @@ class CakeOption extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          image,
+          widget.image,
           const SizedBox(height: 5),
           Text(
-            title,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            widget.title,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
           ),
           Text(
-            price,
+            widget.price,
             style: TextStyle(
-                color: Colors.purple[400], fontWeight: FontWeight.bold),
+              color: Colors.purple[400],
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ],
       ),
