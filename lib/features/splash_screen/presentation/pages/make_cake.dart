@@ -563,12 +563,3 @@ class OrderSummaryPage extends StatelessWidget {
   }
 }
 
-// void main() {
-//   runApp(MaterialApp(
-//     debugShowCheckedModeBanner: false,
-//     initialRoute: BakingPage.routeName,
-//     routes: {
-//       BakingPage.routeName: (context) => BakingPage(),
-//     },
-//   ));
-// }

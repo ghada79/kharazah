@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:kharazah/core/utils/color_mananger.dart';
 import 'package:kharazah/core/utils/styles_manager.dart';
 import 'package:kharazah/features/home_screen/presentation/widgets/item_of_listview.dart';
 
+import '../../../../config/routes/routes.dart';
 import '../widgets/pattern.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -26,7 +28,8 @@ class HomeScreen extends StatelessWidget {
               children: [
                 Text(
                   'Jeddah',
-                  style: getMediumStyle(color: ColorManager.primary, fontSize: 14.sp),
+                  style: getMediumStyle(
+                      color: ColorManager.primary, fontSize: 14.sp),
                 ),
                 Icon(
                   Icons.arrow_drop_down,
@@ -58,8 +61,8 @@ class HomeScreen extends StatelessWidget {
               },
               blendMode: BlendMode.srcATop,
               child: InkWell(
-                onTap: (){
-                  // todo : Navegate to make custom cake
+                onTap: () {
+                  context.go(Routes.bakingPageRoute);
                 },
                 child: Container(
                   width: double.infinity,
@@ -84,11 +87,13 @@ class HomeScreen extends StatelessWidget {
                           children: [
                             Text(
                               'Make your own cake!',
-                              style: getBoldStyle(color: ColorManager.primary, fontSize: 20.sp),
+                              style: getBoldStyle(
+                                  color: ColorManager.primary, fontSize: 20.sp),
                             ),
                             Text(
                               'No one can do it better than you',
-                              style: getBoldStyle(color: ColorManager.black, fontSize: 14.sp),
+                              style: getBoldStyle(
+                                  color: ColorManager.black, fontSize: 14.sp),
                             ),
                           ],
                         ),
@@ -98,35 +103,51 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 16.h,),
-            Text('Hope Collection' , style: getBoldStyle(color: ColorManager.black , fontSize: 24),),
-            SizedBox(height: 16.h,),
-            Expanded(
-              flex: 1,
-              child: ListView.separated(
-                  separatorBuilder: (context, index) => SizedBox(width: 16.w,),
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 6,
-                  itemBuilder: (context, index) => ItemOfListview(),
-              ),
+            SizedBox(
+              height: 16.h,
             ),
-            SizedBox(height: 16.h,),
-            Text('Hope Collection' , style: getBoldStyle(color: ColorManager.black , fontSize: 24),),
-            SizedBox(height: 16.h,),
+            Text(
+              'Hope Collection',
+              style: getBoldStyle(color: ColorManager.black, fontSize: 24),
+            ),
+            SizedBox(
+              height: 16.h,
+            ),
             Expanded(
               flex: 1,
               child: ListView.separated(
-                separatorBuilder: (context, index) => SizedBox(width: 16.w,),
+                separatorBuilder: (context, index) => SizedBox(
+                  width: 16.w,
+                ),
                 scrollDirection: Axis.horizontal,
                 itemCount: 6,
                 itemBuilder: (context, index) => ItemOfListview(),
               ),
             ),
-
+            SizedBox(
+              height: 16.h,
+            ),
+            Text(
+              'Hope Collection',
+              style: getBoldStyle(color: ColorManager.black, fontSize: 24),
+            ),
+            SizedBox(
+              height: 16.h,
+            ),
+            Expanded(
+              flex: 1,
+              child: ListView.separated(
+                separatorBuilder: (context, index) => SizedBox(
+                  width: 16.w,
+                ),
+                scrollDirection: Axis.horizontal,
+                itemCount: 6,
+                itemBuilder: (context, index) => ItemOfListview(),
+              ),
+            ),
           ],
         ),
       ),
     );
   }
-
 }
