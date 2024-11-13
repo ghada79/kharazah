@@ -1,8 +1,14 @@
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kharazah/bloc_observer.dart';
+import 'package:kharazah/config/di/di.dart';
 import 'config/routes/route_manger.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  Bloc.observer = MyBlocObserver();
+  configureDependencies();
   runApp(const KharazahApp());
 }
 

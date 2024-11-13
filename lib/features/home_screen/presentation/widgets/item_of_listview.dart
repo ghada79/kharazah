@@ -10,46 +10,53 @@ class ItemOfListview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(8.w), // Adjust padding based on screen size
-      width: 150.w, // Width adapts to screen width
-      height: 200.h, // Adjust height for better aspect ratio on all devices
+      padding: EdgeInsets.all(6.w),
+      width: 130.w,
       decoration: BoxDecoration(
         color: ColorManager.secondaryPrimary.withOpacity(0.2),
-        borderRadius: BorderRadius.all(Radius.circular(16.r)),
+        borderRadius: BorderRadius.all(Radius.circular(12.r)),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start, // Aligns all text to start
-        children: [
-          Expanded(
-            flex: 2,
-            child: Image.asset(
-              ImageAssets.cake2,
-              height: 100.h, // Image scales with screen height
-              width: double.infinity,
-              fit: BoxFit.cover,
+      child: SingleChildScrollView(
+        physics: NeverScrollableScrollPhysics(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12.r),
+              child: Image.asset(
+                ImageAssets.cake2,
+                height: 80.h,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          SizedBox(height: 8.h), // Responsive space between elements
-          Expanded(
-            flex: 1,
-            child: Text(
+            SizedBox(height: 6.h),
+            Text(
               'Chocolate Cake From AlAbd',
-              style: getMediumStyle(color: ColorManager.black, fontSize: 14.sp), // Font scales with screen size
-              textAlign: TextAlign.left, // Aligns text to the left
+              style: getMediumStyle(color: ColorManager.black, fontSize: 10.sp),
+              textAlign: TextAlign.left,
             ),
-          ),
-          Text(
-            'Delicious and freshly baked',
-            style: getMediumStyle(color: ColorManager.black.withOpacity(0.7), fontSize: 12.sp),
-            textAlign: TextAlign.left, // Aligns text to the left
-          ),
-          Text(
-            '220 SAR',
-            style: getBoldStyle(color: ColorManager.primary, fontSize: 16.sp),
-            textAlign: TextAlign.left, // Aligns text to the left
-          ),
-
-        ],
+            Text(
+              'Delicious and freshly baked',
+              style: getMediumStyle(color: ColorManager.black.withOpacity(0.7), fontSize: 9.sp),
+              textAlign: TextAlign.left,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '220 SAR',
+                  style: getBoldStyle(color: ColorManager.primary, fontSize: 14.sp),
+                  textAlign: TextAlign.left,
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.add_circle, color: ColorManager.primary, size: 20),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

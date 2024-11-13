@@ -6,7 +6,6 @@ import 'flavor_card.dart';
 import 'order_summary_page.dart';
 
 class BakingPage extends StatefulWidget {
-  static String routeName = 'bake_page';
 
   @override
   State<BakingPage> createState() => _BakingPageState();

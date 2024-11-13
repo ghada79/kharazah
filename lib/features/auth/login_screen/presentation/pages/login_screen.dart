@@ -59,7 +59,7 @@ class LoginScreen extends StatelessWidget {
                       color: ColorManager.primary,
                       onTap: () {
                         // todo: Go to Home Page
-                        context.go(Routes.homeScreenRoute);
+                        context.go(Routes.mainLayOut);
                       },
                       width: double.infinity,
                     ),
