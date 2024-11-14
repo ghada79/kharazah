@@ -1,6 +1,8 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kharazah/core/utils/color_mananger.dart';
+import 'package:kharazah/core/utils/styles_manager.dart';
 
 class CakeOption extends StatefulWidget {
   final Image image;
@@ -22,29 +24,24 @@ class _CakeOptionState extends State<CakeOption> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(15),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.pink[50],
-        borderRadius: BorderRadius.circular(20),
+        color: ColorManager.secondaryPrimary.withOpacity(0.2),
+        borderRadius: BorderRadius.circular(4),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           widget.image,
-          const SizedBox(height: 5),
+          const SizedBox(height: 8),
           Text(
             widget.title,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
+            style: getMediumStyle(color: ColorManager.black, fontSize: 14.sp),
           ),
+          const SizedBox(height: 8),
           Text(
             widget.price,
-            style: TextStyle(
-              color: Colors.purple[400],
-              fontWeight: FontWeight.bold,
-            ),
+            style: getMediumStyle(color: ColorManager.primary, fontSize: 11.sp),
           ),
         ],
       ),

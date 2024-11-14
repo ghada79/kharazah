@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:kharazah/config/routes/route_manger.dart';
+import 'package:kharazah/config/routes/routes.dart';
+import 'package:kharazah/core/components/custom_botton.dart';
+import 'package:kharazah/core/utils/color_mananger.dart';
+import 'package:kharazah/core/utils/styles_manager.dart';
 import '../widgets/color_content.dart';
 import '../widgets/flavor_content.dart';
 import '../widgets/shapeContentWidget.dart';
@@ -74,7 +81,18 @@ class _BakingPageState extends State<BakingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Customize"),
+        title: Text("Customize" , style: getMediumStyle(color: ColorManager.white, fontSize: 16.sp),),
+        centerTitle: true,
+        backgroundColor: ColorManager.primary,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: ColorManager.white,
+          ),
+          onPressed: () {
+            context.go(Routes.mainLayOut);
+          },
+        ),
         actions: [
           Padding(
             padding: const EdgeInsets.all(16.0),
@@ -83,15 +101,12 @@ class _BakingPageState extends State<BakingPage> {
                 if (selectedColor != null)
                   Text(
                     selectedColor ?? '',
-                    style: TextStyle(
-                      color: Colors.purple[400],
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: getRegularStyle(color: ColorManager.white, fontSize: 12.sp),
                   ),
                 SizedBox(width: 10),
                 Text(
                   selectedCakePrice ?? 'SAR 0',
-                  style: TextStyle(color: Colors.purple[400]),
+                  style: getRegularStyle(color: ColorManager.white, fontSize: 12.sp),
                 ),
               ],
             ),
@@ -115,13 +130,13 @@ class _BakingPageState extends State<BakingPage> {
             left: 0,
             bottom: 80,
             child: Container(
-              width: 80,
-              height: MediaQuery.of(context).size.height * 0.4,
+              width: 80.w,
+              height: 320.h,
               decoration: BoxDecoration(
-                color: Colors.purple[400],
+                color: ColorManager.primary,
                 borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(20),
-                  bottomRight: Radius.circular(20),
+                  topRight: Radius.circular(8),
+                  bottomRight: Radius.circular(8),
                 ),
               ),
               child: SingleChildScrollView(
@@ -145,21 +160,12 @@ class _BakingPageState extends State<BakingPage> {
             left: 100,
             right: 16,
             bottom: 80,
-            child: Container(
+            child: SizedBox(
               height: MediaQuery.of(context).size.height * 0.4,
               child: AnimatedOpacity(
                 opacity: isDetailVisible ? 1.0 : 0.0,
-                duration: Duration(milliseconds: 300),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8),
-                    boxShadow: [
-                      BoxShadow(color: Colors.black26, blurRadius: 5),
-                    ],
-                  ),
-                  child: _buildSelectedContent(),
-                ),
+                duration: Duration(milliseconds: 20),
+                child: _buildSelectedContent(),
               ),
             ),
           ),
@@ -167,35 +173,22 @@ class _BakingPageState extends State<BakingPage> {
             left: 16,
             right: 16,
             bottom: 16,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => OrderSummaryPage(
-                      selectedShape: selectedShape,
-                      selectedFlavor: selectedFlavor,
-                      selectedColor: selectedColor,
-                      selectedCakeImage: selectedCakeImage,
-                      selectedCakePrice: selectedCakePrice,
-                      selectedToppings: selectedToppings,
-                      onItemSelected: selectedTabName, // تمرير اسم التاب
-                    ),
+            child: CustomBotton(text: 'Next', color: ColorManager.primary, onTap: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => OrderSummaryPage(
+                    selectedShape: selectedShape,
+                    selectedFlavor: selectedFlavor,
+                    selectedColor: selectedColor,
+                    selectedCakeImage: selectedCakeImage,
+                    selectedCakePrice: selectedCakePrice,
+                    selectedToppings: selectedToppings,
+                    onItemSelected: selectedTabName, // تمرير اسم التاب
                   ),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.purple[400],
-                minimumSize: const Size(double.infinity, 50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
                 ),
-              ),
-              child: const Text(
-                'Next',
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
+              );
+            }, width: double.infinity)
           ),
         ],
       ),
@@ -213,10 +206,10 @@ class _BakingPageState extends State<BakingPage> {
       },
       child: AnimatedContainer(
         duration: Duration(milliseconds: 200),
-        padding: EdgeInsets.symmetric(vertical: 8),
+        padding: EdgeInsets.symmetric(vertical: 8 , horizontal: 8),
         decoration: BoxDecoration(
-          color: isSelected ? Colors.purple[300] : Colors.transparent,
-          borderRadius: BorderRadius.circular(10),
+          color: isSelected ? ColorManager.secondaryPrimary.withOpacity(0.4) : Colors.transparent,
+          borderRadius: BorderRadius.circular(8),
         ),
         margin: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
         child: Column(
@@ -226,11 +219,7 @@ class _BakingPageState extends State<BakingPage> {
             SizedBox(height: 2),
             Text(
               label,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-              ),
+              style: getRegularStyle(color: ColorManager.white, fontSize: 12.sp),
             ),
           ],
         ),

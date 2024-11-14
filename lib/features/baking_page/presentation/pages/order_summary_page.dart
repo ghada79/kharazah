@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kharazah/core/components/custom_botton.dart';
+import 'package:kharazah/core/utils/color_mananger.dart';
+import 'package:kharazah/core/utils/styles_manager.dart';
 
 class OrderSummaryPage extends StatelessWidget {
   final String? selectedShape;
@@ -23,7 +27,19 @@ class OrderSummaryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Order Summary'),
+        title: Text('Order Summary' , style: getMediumStyle(color: ColorManager.white, fontSize: 16.sp),),
+        centerTitle: true,
+        backgroundColor: ColorManager.primary,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: ColorManager.white,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        toolbarHeight: 88.h,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -43,24 +59,10 @@ class OrderSummaryPage extends StatelessWidget {
             SizedBox(height: 20),
             Text(
               'Total Price: SAR ${selectedCakePrice ?? '490'}', // اجمالي السعر
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-              ),
+              style: getMediumStyle(color: ColorManager.black, fontSize: 16.sp),
             ),
             SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // يمكنك إضافة وظيفة إتمام الطلب هنا
-              },
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(double.infinity, 50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-              child: Text('Place Order'),
-            ),
+            CustomBotton(text: 'Place Order', color: ColorManager.primary, onTap: (){}, width: double.infinity,),
           ],
         ),
       ),
@@ -77,6 +79,7 @@ class OrderSummaryPage extends StatelessWidget {
     String toppings,
   ) {
     return Card(
+      color: ColorManager.primary,
       margin: EdgeInsets.symmetric(vertical: 8),
       child: Padding(
         padding: EdgeInsets.all(8),
@@ -95,23 +98,23 @@ class OrderSummaryPage extends StatelessWidget {
                 children: [
                   Text(
                     shape, // الشكل المختار
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    style: getMediumStyle(color: ColorManager.white, fontSize: 16.sp),
                   ),
                   Text(
                     flavor, // النكهة المختارة
-                    style: TextStyle(color: Colors.grey),
+                    style: getMediumStyle(color: ColorManager.white.withOpacity(0.5), fontSize: 11.sp),
                   ),
                   Text(
                     'Color: $color', // اللون المختار
-                    style: TextStyle(color: Colors.grey),
+                    style: getMediumStyle(color: ColorManager.white.withOpacity(0.5), fontSize: 11.sp),
                   ),
                   Text(
                     'Toppings: $toppings', // الإضافات المختارة
-                    style: TextStyle(color: Colors.grey),
+                    style: getMediumStyle(color: ColorManager.white.withOpacity(0.5), fontSize: 11.sp),
                   ),
                   Text(
                     'SAR $price', // السعر
-                    style: TextStyle(color: Colors.purple[400]),
+                    style: getMediumStyle(color: ColorManager.white, fontSize: 16.sp),
                   ),
                 ],
               ),
@@ -124,15 +127,15 @@ class OrderSummaryPage extends StatelessWidget {
                     // تقليل العدد
                   },
                 ),
-                Text('1'), // العرض الافتراضي للعدد
+                Text('1' , style: getMediumStyle(color: ColorManager.white, fontSize: 12.sp)), // العرض الافتراضي للعدد
                 IconButton(
-                  icon: Icon(Icons.add, color: Colors.purple),
+                  icon: Icon(Icons.add, color: ColorManager.white),
                   onPressed: () {
                     // زيادة العدد
                   },
                 ),
                 IconButton(
-                  icon: Icon(Icons.delete, color: Colors.red),
+                  icon: Icon(Icons.delete, color: ColorManager.red),
                   onPressed: () {
                     // مسح المنتج
                   },
