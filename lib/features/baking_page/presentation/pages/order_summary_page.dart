@@ -91,7 +91,7 @@ class _OrderSummaryPageState extends State<OrderSummaryPage> {
                 widget.selectedShape ?? 'Default Shape',
                 widget.selectedFlavor ?? 'Default Flavor',
                 widget.selectedCakePrice ?? '0',
-                widget.selectedCakeImage ?? 'assets/images/default.jpg',
+                widget.selectedCakeImage ?? 'assets/images/cake.jpg',
                 widget.selectedColor ?? 'Default Color',
                 widget.selectedToppings ?? 'No Toppings',
               ),
