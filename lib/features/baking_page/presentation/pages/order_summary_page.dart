@@ -4,7 +4,7 @@ import 'package:kharazah/core/components/custom_botton.dart';
 import 'package:kharazah/core/utils/color_mananger.dart';
 import 'package:kharazah/core/utils/styles_manager.dart';
 
-class OrderSummaryPage extends StatelessWidget {
+class OrderSummaryPage extends StatefulWidget {
   final String? selectedShape;
   final String? selectedFlavor;
   final String? selectedColor;
@@ -24,10 +24,49 @@ class OrderSummaryPage extends StatelessWidget {
   });
 
   @override
+  _OrderSummaryPageState createState() => _OrderSummaryPageState();
+}
+
+class _OrderSummaryPageState extends State<OrderSummaryPage> {
+  int _quantity = 1;
+
+  // Function to increment the quantity
+  void incrementQuantity() {
+    setState(() {
+      _quantity++;
+    });
+  }
+
+  // Function to decrement the quantity
+  void decrementQuantity() {
+    if (_quantity > 1) {
+      setState(() {
+        _quantity--;
+      });
+    }
+  }
+
+  // Function to delete the item
+  void deleteItem() {
+    setState(() {
+      _quantity = 0;
+    });
+  }
+
+  int _getParsedPrice() {
+    // Remove any non-numeric characters from the price string
+    final cleanedPrice = widget.selectedCakePrice?.replaceAll(RegExp(r'[^0-9]'), '') ?? '0';
+    return int.parse(cleanedPrice);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Order Summary' , style: getMediumStyle(color: ColorManager.white, fontSize: 16.sp),),
+        title: Text(
+          'Order Summary',
+          style: getMediumStyle(color: ColorManager.white, fontSize: 16.sp),
+        ),
         centerTitle: true,
         backgroundColor: ColorManager.primary,
         leading: IconButton(
@@ -46,23 +85,31 @@ class OrderSummaryPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildProductItem(
-              context,
-              selectedShape ?? 'Default Shape',
-              selectedFlavor ?? 'Default Flavor',
-              selectedCakePrice ?? '0',
-              selectedCakeImage ?? 'assets/images/default.jpg',
-              // صورة المنتج
-              selectedColor ?? 'Default Color',
-              selectedToppings ?? 'No Toppings',
-            ),
+            if (_quantity > 0)
+              _buildProductItem(
+                context,
+                widget.selectedShape ?? 'Default Shape',
+                widget.selectedFlavor ?? 'Default Flavor',
+                widget.selectedCakePrice ?? '0',
+                widget.selectedCakeImage ?? 'assets/images/default.jpg',
+                widget.selectedColor ?? 'Default Color',
+                widget.selectedToppings ?? 'No Toppings',
+              ),
             SizedBox(height: 20),
-            Text(
-              'Total Price: SAR ${selectedCakePrice ?? '490'}', // اجمالي السعر
-              style: getMediumStyle(color: ColorManager.black, fontSize: 16.sp),
-            ),
-            SizedBox(height: 20),
-            CustomBotton(text: 'Place Order', color: ColorManager.primary, onTap: (){}, width: double.infinity,),
+            if (_quantity > 0)
+              Text(
+                'Total Price: SAR ${_getParsedPrice() * _quantity}', // اجمالي السعر
+                style: getMediumStyle(color: ColorManager.black, fontSize: 16.sp),
+              ),
+            if (_quantity > 0)
+              SizedBox(height: 20),
+            if (_quantity > 0)
+              CustomBotton(
+                text: 'Place Order',
+                color: ColorManager.primary,
+                onTap: () {},
+                width: double.infinity,
+              ),
           ],
         ),
       ),
@@ -70,14 +117,14 @@ class OrderSummaryPage extends StatelessWidget {
   }
 
   Widget _buildProductItem(
-    BuildContext context,
-    String shape,
-    String flavor,
-    String price,
-    String imagePath,
-    String color,
-    String toppings,
-  ) {
+      BuildContext context,
+      String shape,
+      String flavor,
+      String price,
+      String imagePath,
+      String color,
+      String toppings,
+      ) {
     return Card(
       color: ColorManager.primary,
       margin: EdgeInsets.symmetric(vertical: 8),
@@ -123,22 +170,19 @@ class OrderSummaryPage extends StatelessWidget {
               children: [
                 IconButton(
                   icon: Icon(Icons.remove, color: Colors.grey),
-                  onPressed: () {
-                    // تقليل العدد
-                  },
+                  onPressed: decrementQuantity, // Call to decrement quantity
                 ),
-                Text('1' , style: getMediumStyle(color: ColorManager.white, fontSize: 12.sp)), // العرض الافتراضي للعدد
+                Text(
+                  '$_quantity', // Display the current quantity
+                  style: getMediumStyle(color: ColorManager.white, fontSize: 12.sp),
+                ),
                 IconButton(
                   icon: Icon(Icons.add, color: ColorManager.white),
-                  onPressed: () {
-                    // زيادة العدد
-                  },
+                  onPressed: incrementQuantity, // Call to increment quantity
                 ),
                 IconButton(
                   icon: Icon(Icons.delete, color: ColorManager.red),
-                  onPressed: () {
-                    // مسح المنتج
-                  },
+                  onPressed: deleteItem, // Call to delete item
                 ),
               ],
             ),

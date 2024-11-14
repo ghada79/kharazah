@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kharazah/config/routes/route_manger.dart';
 import 'package:kharazah/config/routes/routes.dart';
 import 'package:kharazah/core/components/custom_botton.dart';
 import 'package:kharazah/core/utils/color_mananger.dart';
@@ -184,7 +183,7 @@ class _BakingPageState extends State<BakingPage> {
                     selectedCakeImage: selectedCakeImage,
                     selectedCakePrice: selectedCakePrice,
                     selectedToppings: selectedToppings,
-                    onItemSelected: selectedTabName, // تمرير اسم التاب
+                    onItemSelected: selectedTabName,
                   ),
                 ),
               );
