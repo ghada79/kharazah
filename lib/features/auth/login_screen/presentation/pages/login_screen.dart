@@ -7,6 +7,7 @@ import 'package:kharazah/core/components/custom_botton.dart';
 import 'package:kharazah/core/utils/styles_manager.dart';
 import '../../../../../core/utils/color_mananger.dart';
 import '../widgets/custom_shape_pinter.dart';
+//carousel.dart
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);

@@ -3,14 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kharazah/config/routes/routes.dart';
 import 'package:kharazah/core/components/custom_botton.dart';
-import 'package:kharazah/core/utils/color_mananger.dart';
 import 'package:kharazah/core/utils/styles_manager.dart';
+import '../../../cart_page/presentation/pages/order_summary_page.dart';
 import '../widgets/color_content.dart';
 import '../widgets/flavor_content.dart';
 import '../widgets/shapeContentWidget.dart';
 import '../widgets/toppings_content.dart';
 import '../widgets/toppings_page.dart';
-import 'order_summary_page.dart'; // صفحة الملخص
 
 class BakingPage extends StatefulWidget {
   static String routeName = 'bake_page';
@@ -119,7 +118,7 @@ class _BakingPageState extends State<BakingPage> {
             right: 0,
             top: 80,
             child: Image.asset(
-              selectedCakeImage ?? '',
+              selectedCakeImage ?? 'assets/images/images.jpg',
               width: MediaQuery.of(context).size.width,
               height: 200,
               fit: BoxFit.cover,
@@ -169,26 +168,29 @@ class _BakingPageState extends State<BakingPage> {
             ),
           ),
           Positioned(
-            left: 16,
-            right: 16,
-            bottom: 16,
-            child: CustomBotton(text: 'Next', color: ColorManager.primary, onTap: (){
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => OrderSummaryPage(
-                    selectedShape: selectedShape,
-                    selectedFlavor: selectedFlavor,
-                    selectedColor: selectedColor,
-                    selectedCakeImage: selectedCakeImage,
-                    selectedCakePrice: selectedCakePrice,
-                    selectedToppings: selectedToppings,
-                    onItemSelected: selectedTabName,
-                  ),
-                ),
-              );
-            }, width: double.infinity)
-          ),
+              left: 16,
+              right: 16,
+              bottom: 16,
+              child: CustomBotton(
+                  text: 'Next',
+                  color: ColorManager.primary,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => OrderSummaryPage(
+                          selectedShape: selectedShape,
+                          selectedFlavor: selectedFlavor,
+                          selectedColor: selectedColor,
+                          selectedCakeImage: selectedCakeImage,
+                          selectedCakePrice: selectedCakePrice,
+                          selectedToppings: selectedToppings,
+                          onItemSelected: selectedTabName,
+                        ),
+                      ),
+                    );
+                  },
+                  width: double.infinity)),
         ],
       ),
     );
@@ -207,7 +209,9 @@ class _BakingPageState extends State<BakingPage> {
         duration: Duration(milliseconds: 200),
         padding: EdgeInsets.symmetric(vertical: 8 , horizontal: 8),
         decoration: BoxDecoration(
-          color: isSelected ? ColorManager.secondaryPrimary.withOpacity(0.4) : Colors.transparent,
+          color: isSelected
+              ? ColorManager.secondaryColor.withOpacity(0.9)
+              : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
         ),
         margin: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
@@ -225,4 +229,12 @@ class _BakingPageState extends State<BakingPage> {
       ),
     );
   }
+}
+
+class ColorManager {
+  static Color primary = Color(0xFF405c4c); // بني دافئ
+  static Color secondaryColor = Color(0xFFc08c42); // ذهبي
+  static Color accent = Color(0xFF4682B4); // أزرق داكن
+  static Color white = Color(0xFFFFFFFF); // برونزي
+// برونزي
 }

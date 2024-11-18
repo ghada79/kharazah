@@ -40,7 +40,9 @@ class CustomTextFiled extends StatelessWidget {
         filled: true,
         fillColor: ColorManager.lightGray.withOpacity(0.5),
         hintText: hintText,
-        hintStyle: getMediumStyle(color: ColorManager.secondaryPrimary.withOpacity(0.4), fontSize: 14.sp),
+        hintStyle: getMediumStyle(
+            color: ColorManager.secondaryColor.withOpacity(0.4),
+            fontSize: 14.sp),
         border: OutlineInputBorder(
           borderRadius: borderRadius,
         ),

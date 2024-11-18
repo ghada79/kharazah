@@ -13,7 +13,7 @@ class ItemOfListview extends StatelessWidget {
       padding: EdgeInsets.all(6.w),
       width: 130.w,
       decoration: BoxDecoration(
-        color: ColorManager.secondaryPrimary.withOpacity(0.2),
+        color: ColorManager.secondaryColor.withOpacity(0.2),
         borderRadius: BorderRadius.all(Radius.circular(12.r)),
       ),
       child: SingleChildScrollView(

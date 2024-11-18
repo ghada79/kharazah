@@ -26,8 +26,8 @@ class _CakeOptionState extends State<CakeOption> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: ColorManager.secondaryPrimary.withOpacity(0.2),
-        borderRadius: BorderRadius.circular(4),
+        color: ColorManager.secondaryColor.withOpacity(0.7),
+        borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,7 +36,7 @@ class _CakeOptionState extends State<CakeOption> {
           const SizedBox(height: 8),
           Text(
             widget.title,
-            style: getMediumStyle(color: ColorManager.black, fontSize: 14.sp),
+            style: getMediumStyle(color: ColorManager.white, fontSize: 14.sp),
           ),
           const SizedBox(height: 8),
           Text(

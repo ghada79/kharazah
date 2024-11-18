@@ -39,14 +39,17 @@ class _CustomPasswordFiledState extends State<CustomPasswordFiled> {
       controller: widget.controller,
       decoration: InputDecoration(
         prefixIcon: widget.prefixIcon,
-        hintStyle: getMediumStyle(color: ColorManager.secondaryPrimary.withOpacity(0.4), fontSize: 14.sp),
+        hintStyle: getMediumStyle(
+            color: ColorManager.secondaryColor.withOpacity(0.4),
+            fontSize: 14.sp),
         suffixIcon: IconButton(onPressed: (){
           setState(() {
             widget.obscureText = !widget.obscureText;
           });
-        }, icon: widget.obscureText ? Icon(Icons.visibility_off
-            ,color: ColorManager.secondaryPrimary.withOpacity(0.3),)
-            : const Icon(Icons.visibility , color: ColorManager.primary,)),
+        }, icon: widget.obscureText ? Icon(Icons.visibility_off,
+                    color: ColorManager.secondaryColor.withOpacity(0.3),
+                  )
+                : const Icon(Icons.visibility , color: ColorManager.primary,)),
         filled: true,
         fillColor: ColorManager.lightGray.withOpacity(0.5),
         hintText: widget.hintText,

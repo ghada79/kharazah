@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../utils/color_mananger.dart';
 import '../utils/styles_manager.dart';
+//carousel.dart
 
 class GeneralButton extends StatelessWidget {
   final String? title;
