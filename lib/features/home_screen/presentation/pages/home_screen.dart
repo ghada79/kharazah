@@ -15,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final PageController _pageController =
-      PageController(); // للتحكم في التمرير بين الصفحات
+      PageController();
   int _currentPage = 0; // لتتبع الصفحة الحالية
 
   @override
@@ -45,17 +45,22 @@ class _HomeScreenState extends State<HomeScreen> {
   // 1. AppBar
   AppBar _buildAppBar() {
     return AppBar(
-      backgroundColor: ColorManager.secondaryColor.withOpacity(0.5),
+      backgroundColor: ColorManager.white.withOpacity(0.5),
       toolbarHeight: 80.h,
       title: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
+
           Text(
             'Delivery To',
             style: getBoldStyle(color: ColorManager.black, fontSize: 16.sp),
           ),
+
           Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+
             children: [
+
               Text(
                 'Jeddah',
                 style: getMediumStyle(
@@ -65,18 +70,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 Icons.arrow_drop_down,
                 color: ColorManager.primary,
               ),
+
             ],
           ),
         ],
       ),
+
       leading: Padding(
-        padding: EdgeInsets.all(8.w),
-        child: Icon(
-          Icons.delivery_dining,
-          color: ColorManager.primary,
-          size: 28.sp,
-        ),
+        padding: EdgeInsets.all(3.w),
+        child:
+
+        Image(image: AssetImage('assets/images/icon.png'),),
       ),
+
     );
   }
 
@@ -111,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
       borderRadius: BorderRadius.circular(15.r),
       child: Image.asset(
         imageAsset,
-        fit: BoxFit.cover,
+        fit: BoxFit.fill,
         width: double.infinity,
       ),
     );
@@ -128,8 +134,8 @@ class _HomeScreenState extends State<HomeScreen> {
         height: 180.h,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(ImageAssets.productDesignImage),
-            fit: BoxFit.cover,
+            image: AssetImage(ImageAssets.image6),
+            fit: BoxFit.fill,
           ),
           borderRadius: BorderRadius.circular(12.r),
         ),
@@ -140,10 +146,7 @@ class _HomeScreenState extends State<HomeScreen> {
             color: ColorManager.black.withOpacity(0.5),
             borderRadius: BorderRadius.circular(12.r),
           ),
-          child: Text(
-            'صنع كيكتك بنفسك',
-            style: getBoldStyle(color: Colors.white, fontSize: 16.sp),
-          ),
+
         ),
       ),
     );
@@ -157,16 +160,18 @@ class _HomeScreenState extends State<HomeScreen> {
         ClipRRect(
           borderRadius: BorderRadius.circular(15.r),
           child: Image.asset(
-            ImageAssets.someImage, // Your image here
+            ImageAssets.image7, // Your image here
             width: double.infinity,
             height: 150.h,
             fit: BoxFit.cover,
           ),
         ),
         SizedBox(height: 8.h),
-        Text(
-          'Delicious Cakes made with love!',
-          style: getMediumStyle(color: ColorManager.black, fontSize: 14.sp),
+        Center(
+          child: Text(
+            "أحذية أنيقة مصنوعة بكل حب!",
+            style: getMediumStyle(color: ColorManager.black, fontSize: 14.sp),
+          ),
         ),
       ],
     );
@@ -179,13 +184,13 @@ class _HomeScreenState extends State<HomeScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            _buildImageContainer(ImageAssets.image1),
-            _buildImageContainer(ImageAssets.image2),
+            _buildImageContainer(ImageAssets.image5),
+            _buildImageContainer(ImageAssets.image4),
           ],
         ),
         SizedBox(height: 8.h),
         Text(
-          'Our Signature Cakes',
+          '"أحذيتنا المميزة"',
           style: getBoldStyle(color: ColorManager.black, fontSize: 16.sp),
         ),
       ],
@@ -200,7 +205,7 @@ class _HomeScreenState extends State<HomeScreen> {
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage(imageAsset),
-          fit: BoxFit.cover,
+          fit: BoxFit.fill,
         ),
         borderRadius: BorderRadius.circular(12.r),
       ),
@@ -210,7 +215,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // 6. Page Indicator (النقاط تحت الـ PageView)
   Widget _buildPageIndicator() {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8.h),
+      padding: EdgeInsets.symmetric(vertical: 10.h),
       child: SmoothPageIndicator(
         controller: _pageController, // ربط الـ controller
         count: 3, // عدد الصور في الـ PageView
@@ -224,9 +229,12 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class ImageAssets {
-  static const String image1 = 'assets/images/cake.jpg';
-  static const String image2 = 'assets/images/cake.jpg';
-  static const String image3 = 'assets/images/cake.jpg';
-  static const String productDesignImage = 'assets/images/cake.jpg';
-  static const String someImage = 'assets/images/cake.jpg';
+  static const String image1 = 'assets/images/modern.jpg';
+  static const String image2 = 'assets/images/photo_5915986493401320064_x.jpg';
+  static const String image3 = 'assets/images/differ.jpg';
+  static const String  image4= 'assets/images/wo.jpg';
+  static const String image6 = 'assets/images2/do.jpg';
+  static const String image5 = 'assets/images/ki.jpg';
+  static const String image7 = 'assets/images2/free.jpg';
+
 }

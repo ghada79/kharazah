@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class ToppingsWriteContent extends StatelessWidget {
+class WriteContent extends StatelessWidget {
   final Function(String) onItemSelected;
 
-  const ToppingsWriteContent({required this.onItemSelected});
+  const WriteContent({required this.onItemSelected});
 
   @override
   Widget build(BuildContext context) {

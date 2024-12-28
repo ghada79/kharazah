@@ -25,9 +25,14 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorManager.primary,
+      backgroundColor: ColorManager.white,
       body: Center(
-          child: Text('Kharazah', style: getBoldStyle(color: ColorManager.white, fontSize: 32.sp),)),
+        child: Image.asset(
+        'assets/images/logo.png', // مسار الصورة
+        width: 150.w, // عرض الصورة (اختياري)
+        height: 150.h, // ارتفاع الصورة (اختياري)
+        fit: BoxFit.contain, // لتحديد كيفية عرض الصورة
+    )),
     );
   }
 }

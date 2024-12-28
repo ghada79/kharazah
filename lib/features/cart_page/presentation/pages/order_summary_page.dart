@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:kharazah/core/components/custom_botton.dart'; // تأكد من استيراد CustomBotton
-import 'package:kharazah/core/utils/color_mananger.dart'; // استيراد ColorManager إذا لم يكن مستورداً
-import 'package:kharazah/core/utils/styles_manager.dart'; // استيراد styles_manager إذا لم يكن مستورداً
-
-import '../widgets/email_service.dart';
+import 'package:kharazah/core/components/custom_botton.dart';
+import 'package:kharazah/core/utils/color_mananger.dart';
+import 'package:kharazah/core/utils/styles_manager.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class OrderSummaryPage extends StatefulWidget {
-  // تعريف المتغيرات التي سيتم عرضها في صفحة OrderSummaryPage
-  final String? selectedShape;
-  final String? selectedFlavor;
+  final String? selectedStyle;
+  final String? selectedNaqsha;
   final String? selectedColor;
-  final String? selectedCakeImage;
-  final String? selectedCakePrice;
-  final String? selectedToppings;
-  final String? onItemSelected;
+  final String? selectedShoeImage;
+  final String? selectedShoePrice;
+  //final String? selectedRubber;
+   final String? selectedSole;
+  final String? selectedSize;
 
   const OrderSummaryPage({
-    required this.selectedShape,
-    required this.selectedFlavor,
+    required this.selectedStyle,
+    required this.selectedNaqsha,
     required this.selectedColor,
-    required this.selectedCakeImage,
-    required this.selectedCakePrice,
-    required this.selectedToppings,
-    required this.onItemSelected,
+    required this.selectedShoeImage,
+    required this.selectedShoePrice,
+    //required this.selectedRubber,
+    required this.selectedSole,
+    required this.selectedSize
   });
 
   @override
@@ -33,18 +33,15 @@ class OrderSummaryPage extends StatefulWidget {
 class _OrderSummaryPageState extends State<OrderSummaryPage> {
   int _quantity = 1;
 
-  // Text Editing Controllers
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
 
-  // Function to increment the quantity
   void incrementQuantity() {
     setState(() {
       _quantity++;
     });
   }
 
-  // Function to decrement the quantity
   void decrementQuantity() {
     if (_quantity > 1) {
       setState(() {
@@ -53,16 +50,9 @@ class _OrderSummaryPageState extends State<OrderSummaryPage> {
     }
   }
 
-  // Function to delete the item
-  void deleteItem() {
-    setState(() {
-      _quantity = 0;
-    });
-  }
-
   int _getParsedPrice() {
     final cleanedPrice =
-        widget.selectedCakePrice?.replaceAll(RegExp(r'[^0-9]'), '') ?? '0';
+        widget.selectedShoePrice?.replaceAll(RegExp(r'[^0-9]'), '') ?? '0';
     return int.parse(cleanedPrice);
   }
 
@@ -76,16 +66,6 @@ class _OrderSummaryPageState extends State<OrderSummaryPage> {
         ),
         centerTitle: true,
         backgroundColor: ColorManager.primary,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: ColorManager.white,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        toolbarHeight: 88.h,
       ),
       body: SafeArea(
         child: Padding(
@@ -94,76 +74,13 @@ class _OrderSummaryPageState extends State<OrderSummaryPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (_quantity > 0)
-                  _buildProductItem(
-                    context,
-                    widget.selectedShape ?? 'Default Shape',
-                    widget.selectedFlavor ?? 'Default Flavor',
-                    widget.selectedCakePrice ?? '0',
-                    widget.selectedCakeImage ?? 'assets/images/default.jpg',
-                    widget.selectedColor ?? 'Default Color',
-                    widget.selectedToppings ?? 'No Toppings',
-                  ),
+                if (_quantity > 0) _buildProductDetails(),
                 SizedBox(height: 20),
-                TextField(
-                  controller: _addressController,
-                  keyboardType: TextInputType.streetAddress,
-                  decoration: InputDecoration(
-                    filled: true,
-                    // لتفعيل لون الخلفية
-                    fillColor: ColorManager.secondaryColor,
-                    // اللون المراد استخدامه للخلفية
-                    labelText: 'Delivery Address',
-                    labelStyle: getMediumStyle(
-                        color: ColorManager.primary, fontSize: 14.sp),
-                    border: OutlineInputBorder(
-                      borderRadius:
-                          BorderRadius.circular(8), // تعديل الزوايا إذا لزم
-                      borderSide:
-                          BorderSide(color: ColorManager.white), // لون الحواف
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(
-                          color: ColorManager
-                              .white), // لون الحواف عندما يكون الحقل غير مفعّل
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(
-                          color: ColorManager.white,
-                          width: 2), // لون الحواف عندما يكون الحقل مفعّل
-                    ),
-                  ),
-                  style: TextStyle(
-                      color: ColorManager.white), // لون النص داخل الحقل
-                ),
-                TextField(
-                  controller:
-                      _phoneController, // ربط TextField بـ _phoneController
-                  keyboardType: TextInputType.phone,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: ColorManager.secondaryColor,
-                    labelText: 'Phone Number',
-                    labelStyle: getMediumStyle(
-                        color: ColorManager.primary, fontSize: 14.sp),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: ColorManager.white),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: ColorManager.white),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide:
-                          BorderSide(color: ColorManager.white, width: 2),
-                    ),
-                  ),
-                  style: TextStyle(color: ColorManager.white),
-                ),
+                _buildTextField('Delivery Address', _addressController,
+                    TextInputType.streetAddress),
+                SizedBox(height: 20),
+                _buildTextField(
+                    'Phone Number', _phoneController, TextInputType.phone),
                 SizedBox(height: 20),
                 if (_quantity > 0)
                   Text(
@@ -176,40 +93,7 @@ class _OrderSummaryPageState extends State<OrderSummaryPage> {
                   CustomBotton(
                     text: 'Place Order',
                     color: ColorManager.primary,
-                    onTap: () {
-                      final phone = _phoneController.text
-                          .trim(); // تأكد من أخذ النص من الـ phoneController
-                      final address = _addressController.text
-                          .trim(); // تأكد من أخذ النص من الـ addressController
-
-                      if (phone.isEmpty || address.isEmpty) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Please fill all fields.')),
-                        );
-                        return;
-                      }
-
-                      final cakeDetails =
-                          widget.selectedShape ?? 'Unknown Shape';
-                      final totalPrice = _getParsedPrice() * _quantity;
-
-                      final orderDetails = '''
-                           Order Details:
-                           Cake Shape: $cakeDetails
-                           Quantity: $_quantity
-                           Total Price: SAR $totalPrice
-                           Delivery Address: $address
-                           Phone: $phone
-                                 ''';
-
-                      // إرسال تفاصيل الطلب عبر البريد الإلكتروني
-                      sendOrderEmail('ghadaragab1717@gmail.com', orderDetails);
-
-                      // عمل عملية إرسال الطلب
-                      print('Order Placed!');
-                      print('Phone: $phone');
-                      print('Address: $address');
-                    },
+                    onTap: _placeOrder,
                     width: double.infinity,
                   ),
               ],
@@ -220,16 +104,27 @@ class _OrderSummaryPageState extends State<OrderSummaryPage> {
     );
   }
 
-  // أكواد بناء تفاصيل المنتج (الكود الذي ذكرته من قبل)
-  Widget _buildProductItem(
-    BuildContext context,
-    String shape,
-    String flavor,
-    String price,
-    String imagePath,
-    String color,
-    String toppings,
-  ) {
+  Widget _buildTextField(
+      String label, TextEditingController controller, TextInputType inputType) {
+    return TextField(
+      controller: controller,
+      keyboardType: inputType,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: ColorManager.secondaryColor,
+        labelText: label,
+        labelStyle:
+            getMediumStyle(color: ColorManager.primary, fontSize: 14.sp),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(color: ColorManager.white),
+        ),
+      ),
+      style: TextStyle(color: ColorManager.white),
+    );
+  }
+
+  Widget _buildProductDetails() {
     return Card(
       color: ColorManager.primary,
       margin: EdgeInsets.symmetric(vertical: 8),
@@ -238,7 +133,7 @@ class _OrderSummaryPageState extends State<OrderSummaryPage> {
         child: Row(
           children: [
             Image.asset(
-              imagePath,
+              widget.selectedShoeImage ?? 'assets/images/default.jpg',
               width: 60,
               height: 60,
               fit: BoxFit.cover,
@@ -248,34 +143,20 @@ class _OrderSummaryPageState extends State<OrderSummaryPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    shape,
-                    style: getMediumStyle(
-                        color: ColorManager.white, fontSize: 16.sp),
-                  ),
-                  Text(
-                    flavor,
-                    style: getMediumStyle(
-                        color: ColorManager.white.withOpacity(0.5),
-                        fontSize: 11.sp),
-                  ),
-                  Text(
-                    'Color: $color',
-                    style: getMediumStyle(
-                        color: ColorManager.white.withOpacity(0.5),
-                        fontSize: 11.sp),
-                  ),
-                  Text(
-                    'Toppings: $toppings',
-                    style: getMediumStyle(
-                        color: ColorManager.white.withOpacity(0.5),
-                        fontSize: 11.sp),
-                  ),
-                  Text(
-                    'SAR $price',
-                    style: getMediumStyle(
-                        color: ColorManager.white, fontSize: 16.sp),
-                  ),
+                  Text(widget.selectedStyle ?? 'Default Style',
+                      style: getMediumStyle(
+                          color: ColorManager.white, fontSize: 16.sp)),
+                  Text('Color: ${widget.selectedColor ?? 'Default'}',
+                      style: getMediumStyle(
+                          color: ColorManager.white.withOpacity(0.5),
+                          fontSize: 11.sp)),
+                  Text('Size: ${widget.selectedSize ?? 'Default'}',
+                      style: getMediumStyle(
+                          color: ColorManager.white.withOpacity(0.5),
+                          fontSize: 11.sp)),
+                  Text('SAR ${widget.selectedShoePrice ?? '0'}',
+                      style: getMediumStyle(
+                          color: ColorManager.white, fontSize: 16.sp)),
                 ],
               ),
             ),
@@ -294,15 +175,50 @@ class _OrderSummaryPageState extends State<OrderSummaryPage> {
                   icon: Icon(Icons.add, color: ColorManager.white),
                   onPressed: incrementQuantity,
                 ),
-                IconButton(
-                  icon: Icon(Icons.delete, color: ColorManager.red),
-                  onPressed: deleteItem,
-                ),
               ],
             ),
           ],
         ),
       ),
     );
+  }
+
+  Future<void> _placeOrder() async {
+    final phone = _phoneController.text.trim();
+    final address = _addressController.text.trim();
+
+    if (phone.isEmpty || address.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please fill all fields.')),
+      );
+      return;
+    }
+
+    final Uri emailUri = Uri(
+      scheme: 'mailto',
+      path: 'Hesham@kharazah.net',
+      query: Uri.encodeFull(
+        'subject=New Shoes Order&body=Order Details:\n'
+            'Style: ${widget.selectedStyle ?? 'N/A'}\n'
+            'Naqsha: ${widget.selectedNaqsha ?? 'N/A'}\n'
+            'Color: ${widget.selectedColor ?? 'N/A'}\n'
+            'Size: ${widget.selectedSize ?? 'N/A'}\n'
+            'Shoe Price: ${widget.selectedShoePrice ?? '0'}\n'
+           // 'Rubber: ${widget.selectedRubber ?? 'N/A'}\n'
+            'Quantity: $_quantity\n'
+            'Total Price: SAR ${_getParsedPrice() * _quantity}\n'
+            'Delivery Address: $address\n'
+            'Phone: $phone',
+      ),
+    );
+
+    if (await canLaunchUrl(emailUri)) {
+      await launchUrl(emailUri, mode: LaunchMode.externalApplication);
+      print('Order Placed!');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Could not send email.')),
+      );
+    }
   }
 }

@@ -28,11 +28,13 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  url_launcher: ^6.3.1
   mailer: ^5.0.0
   flutter:
     sdk: flutter
   carousel_slider: ^4.2.1
   smooth_page_indicator: ^1.0.0
+
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -55,6 +57,12 @@ dependencies:
 
 
 dev_dependencies:
+#  flutter_launcher_icons: ^0.14.2
+#flutter_launcher_icons:
+#  android: "launcher_icon"
+#  ios: true
+#  image_path: "assets/icon/icon.png"
+#  min_sdk_android: 21 # android min sdk min:16, default 21
   flutter_test:
     sdk: flutter
 
@@ -82,6 +90,13 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/images2/
+    - assets/icons/
+    - assets/pattern/
+    - assets/style/
+    - assets/sole/
+    - assets/login/
+
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

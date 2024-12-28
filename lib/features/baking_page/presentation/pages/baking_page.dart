@@ -4,12 +4,15 @@ import 'package:go_router/go_router.dart';
 import 'package:kharazah/config/routes/routes.dart';
 import 'package:kharazah/core/components/custom_botton.dart';
 import 'package:kharazah/core/utils/styles_manager.dart';
+import '../../../../core/utils/color_mananger.dart';
 import '../../../cart_page/presentation/pages/order_summary_page.dart';
 import '../widgets/color_content.dart';
-import '../widgets/flavor_content.dart';
-import '../widgets/shapeContentWidget.dart';
-import '../widgets/toppings_content.dart';
-import '../widgets/toppings_page.dart';
+import '../widgets/pattern_content.dart';
+import '../widgets/size.dart';
+import '../widgets/styleContentWidget.dart';
+import '../widgets/rubber_content.dart';
+import '../widgets/write_page.dart';
+import '../widgets/sole.dart';
 
 class BakingPage extends StatefulWidget {
   static String routeName = 'bake_page';
@@ -22,29 +25,31 @@ class _BakingPageState extends State<BakingPage> {
   String selectedOption = '';
   bool isDetailVisible = false;
 
-  String? selectedCakeImage;
-  String? selectedCakePrice;
-  String? selectedShape;
-  String? selectedFlavor;
+  String? selectedShoeImage;
+  String? selectedShoePrice;
+  String? selectedStyle;
+  String? selectedPattern;
   String? selectedColor;
-  String? selectedToppings;
+  //String? selectedRubber;
+  String? selectedSole;
+  String? selectedSize;
   String? selectedTabName;
 
   Widget _buildSelectedContent() {
     switch (selectedOption) {
-      case 'Shape':
-        return ShapeContent(onItemSelected: (selectedItem) {
+      case 'Style':
+        return StyleContent(onItemSelected: (selectedItem) {
           setState(() {
-            selectedShape = selectedItem['title'];
-            selectedCakeImage = selectedItem['image'];
-            selectedCakePrice = selectedItem['price'];
+            selectedStyle = selectedItem['title'];
+            selectedShoeImage = selectedItem['image'];
+            selectedShoePrice = selectedItem['price'];
           });
         });
-      case 'Flavor':
-        return FlavorContent(onItemSelected: (selectedItem) {
+      case 'Pattern':
+        return PatternContent(onItemSelected: (selectedItem) {
           setState(() {
-            selectedFlavor = selectedItem['title'];
-            selectedCakeImage = selectedItem['image'];
+            selectedPattern = selectedItem['title'];
+            selectedShoeImage = selectedItem['image'];
           });
         });
       case 'Color':
@@ -53,23 +58,38 @@ class _BakingPageState extends State<BakingPage> {
             selectedColor = selectedItem;
           });
         });
-      case 'Toppings':
-        return ToppingsContent(onItemSelected: (selectedItem) {
+      case 'Size':
+        return SizeContent(onItemSelected: (selectedItem) {
           setState(() {
-            selectedCakeImage = selectedItem['image'];
-            selectedToppings =
-                selectedItem['title']; // تخزين النكهة أو التوبينج
+            selectedSize = selectedItem;
+          });
+        });
+      // case 'Rubber':
+      //   return RubbersContent(onItemSelected: (selectedItem) {
+      //     setState(() {
+      //       selectedShoeImage = selectedItem['image'];
+      //       selectedRubber =
+      //           selectedItem['title']; // تخزين النكهة أو التوبينج
+      //       selectedTabName = selectedItem['tab']; // تخزين اسم التاب
+      //     });
+      //   });
+      case 'Sole':
+        return SoleContent(onItemSelected: (selectedItem) {
+          setState(() {
+            selectedShoeImage = selectedItem['image'];
+            selectedSole =
+            selectedItem['title']; // تخزين النكهة أو التوبينج
             selectedTabName = selectedItem['tab']; // تخزين اسم التاب
           });
         });
       case 'Write':
-        return ToppingsWriteContent(onItemSelected: (p0) => true);
+        return WriteContent(onItemSelected: (p0) => true);
       default:
-        return ShapeContent(onItemSelected: (selectedItem) {
+        return StyleContent(onItemSelected: (selectedItem) {
           setState(() {
-            selectedShape = selectedItem['title'];
-            selectedCakeImage = selectedItem['image'];
-            selectedCakePrice = selectedItem['price'];
+            selectedStyle = selectedItem['title'];
+            selectedShoeImage = selectedItem['image'];
+            selectedShoePrice = selectedItem['price'];
           });
         });
     }
@@ -79,13 +99,16 @@ class _BakingPageState extends State<BakingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Customize" , style: getMediumStyle(color: ColorManager.white, fontSize: 16.sp),),
-        centerTitle: true,
-        backgroundColor: ColorManager.primary,
+        title: Text(
+          "Customize",
+          style: getMediumStyle(color: ColorManager.primary, fontSize: 22.sp),
+        ),
+
+        backgroundColor: Colors.transparent,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: ColorManager.white,
+            color: ColorManager.primary,
           ),
           onPressed: () {
             context.go(Routes.mainLayOut);
@@ -96,16 +119,27 @@ class _BakingPageState extends State<BakingPage> {
             padding: const EdgeInsets.all(16.0),
             child: Row(
               children: [
+                if (selectedSize != null)
+                  Text(
+                    selectedSize ?? '',
+                    style: getRegularStyle(
+                        color: ColorManager.black, fontSize: 12.sp),
+                  ),
+                SizedBox(width: 10),
                 if (selectedColor != null)
                   Text(
                     selectedColor ?? '',
-                    style: getRegularStyle(color: ColorManager.white, fontSize: 12.sp),
+                    style: getRegularStyle(
+                        color: ColorManager.black, fontSize: 12.sp),
                   ),
                 SizedBox(width: 10),
                 Text(
-                  selectedCakePrice ?? 'SAR 0',
-                  style: getRegularStyle(color: ColorManager.white, fontSize: 12.sp),
+                  selectedShoePrice ?? 'SAR 0',
+                  style: getRegularStyle(
+                      color: ColorManager.primary, fontSize: 12.sp),
                 ),
+
+
               ],
             ),
           ),
@@ -118,18 +152,18 @@ class _BakingPageState extends State<BakingPage> {
             right: 0,
             top: 80,
             child: Image.asset(
-              selectedCakeImage ?? 'assets/images/images.jpg',
+              selectedShoeImage ?? 'assets/images2/product-0.png',
               width: MediaQuery.of(context).size.width,
-              height: 200,
+              height: 200.h,
               fit: BoxFit.cover,
             ),
           ),
           Positioned(
             left: 0,
-            bottom: 80,
+            bottom: 0,
             child: Container(
               width: 80.w,
-              height: 320.h,
+              height: 420.h,
               decoration: BoxDecoration(
                 color: ColorManager.primary,
                 borderRadius: BorderRadius.only(
@@ -143,11 +177,13 @@ class _BakingPageState extends State<BakingPage> {
                   padding: EdgeInsets.symmetric(vertical: 8),
                   child: Column(
                     children: [
-                      _buildMenuItem(Icons.cake, 'Shape'),
-                      _buildMenuItem(Icons.restaurant, 'Flavor'),
-                      _buildMenuItem(Icons.palette, 'Color'),
-                      _buildMenuItem(Icons.fastfood, 'Toppings'),
-                      _buildMenuItem(Icons.fastfood, 'Write'),
+                      _buildMenuItem('assets/icons/Style.png', 'Style'),
+                      _buildMenuItem('assets/icons/Pattern.png', 'Pattern'),
+                      _buildMenuItem('assets/icons/Colors.png', 'Color'),
+                     // _buildMenuItem('assets/icons/Rubber.png', 'Rubber'),
+                      _buildMenuItem('assets/icons/Rubber.png', 'Sole'),
+                      _buildMenuItem('assets/icons/size.png', 'Size'),
+                      _buildMenuItem('assets/icons/Write.png', 'Write'),
                     ],
                   ),
                 ),
@@ -155,9 +191,9 @@ class _BakingPageState extends State<BakingPage> {
             ),
           ),
           Positioned(
-            left: 100,
-            right: 16,
-            bottom: 80,
+            left: 100.w,
+            right: 15.w,
+            bottom: 80.h,
             child: SizedBox(
               height: MediaQuery.of(context).size.height * 0.4,
               child: AnimatedOpacity(
@@ -168,9 +204,9 @@ class _BakingPageState extends State<BakingPage> {
             ),
           ),
           Positioned(
-              left: 16,
-              right: 16,
-              bottom: 16,
+              left: 90,
+              right: 30,
+              bottom: 2,
               child: CustomBotton(
                   text: 'Next',
                   color: ColorManager.primary,
@@ -179,13 +215,17 @@ class _BakingPageState extends State<BakingPage> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => OrderSummaryPage(
-                          selectedShape: selectedShape,
-                          selectedFlavor: selectedFlavor,
+                          selectedStyle: selectedStyle,
+                          selectedNaqsha: selectedPattern,
                           selectedColor: selectedColor,
-                          selectedCakeImage: selectedCakeImage,
-                          selectedCakePrice: selectedCakePrice,
-                          selectedToppings: selectedToppings,
-                          onItemSelected: selectedTabName,
+                          selectedShoeImage: selectedShoeImage,
+                          selectedShoePrice: selectedShoePrice,
+                         // selectedRubber: selectedRubber,
+                          selectedSole: selectedSole,
+                          selectedSize: selectedSize,
+
+
+                          //  onItemSelected: selectedTabName,
                         ),
                       ),
                     );
@@ -196,45 +236,51 @@ class _BakingPageState extends State<BakingPage> {
     );
   }
 
-  Widget _buildMenuItem(IconData icon, String label) {
+  Widget _buildMenuItem(String imagePath, String label) {
     bool isSelected = selectedOption == label;
     return InkWell(
       onTap: () {
         setState(() {
-          selectedOption = label;
-          isDetailVisible = true;
+          selectedOption = label; // تحديد الخيار المختار
+          isDetailVisible = true; // عرض المحتوى المرتبط بالخيار
         });
       },
       child: AnimatedContainer(
         duration: Duration(milliseconds: 200),
-        padding: EdgeInsets.symmetric(vertical: 8 , horizontal: 8),
+        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
         decoration: BoxDecoration(
           color: isSelected
               ? ColorManager.secondaryColor.withOpacity(0.9)
               : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
+          boxShadow: isSelected
+              ? [
+            BoxShadow(
+              color: ColorManager.secondaryColor.withOpacity(0.6),
+              blurRadius: 10,
+              offset: Offset(0, 3), // تأثير لطيف
+            ),
+          ]
+              : [],
         ),
         margin: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, color: Colors.white, size: 25),
-            SizedBox(height: 2),
+            Image.asset(
+              imagePath,
+              width: 40,
+              height: 40,
+              fit: BoxFit.contain, // ضبط الصورة
+            ),
+            SizedBox(height: 10),
             Text(
               label,
-              style: getRegularStyle(color: ColorManager.white, fontSize: 12.sp),
+              style: getRegularStyle(color: Colors.white, fontSize: 10.sp),
             ),
           ],
         ),
       ),
     );
   }
-}
-
-class ColorManager {
-  static Color primary = Color(0xFF405c4c); // بني دافئ
-  static Color secondaryColor = Color(0xFFc08c42); // ذهبي
-  static Color accent = Color(0xFF4682B4); // أزرق داكن
-  static Color white = Color(0xFFFFFFFF); // برونزي
-// برونزي
 }

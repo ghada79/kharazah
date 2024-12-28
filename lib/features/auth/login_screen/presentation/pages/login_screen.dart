@@ -6,8 +6,6 @@ import 'package:kharazah/config/routes/routes.dart';
 import 'package:kharazah/core/components/custom_botton.dart';
 import 'package:kharazah/core/utils/styles_manager.dart';
 import '../../../../../core/utils/color_mananger.dart';
-import '../widgets/custom_shape_pinter.dart';
-//carousel.dart
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -21,45 +19,51 @@ class LoginScreen extends StatelessWidget {
             children: [
               SizedBox(
                 width: double.infinity,
-                height: 200.h, // Adjust height as needed
-                child: CustomPaint(
-                  painter: CurvedShapePainter(),
+                height: 200.h, // ضبط الارتفاع حسب الحاجة
+                child: Image.asset(
+                  'assets/login/carve-2 (1).jpg', // استبدلي بالمسار الصحيح للصورة
+                  fit: BoxFit.cover, // لضبط احتواء الصورة
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.w), // Adjust padding as needed
+                padding: EdgeInsets.symmetric(horizontal: 8.w),
                 child: Column(
                   children: [
                     SizedBox(height: 20.h),
                     Text(
                       'Login',
-                      style: getBoldStyle(color: ColorManager.primary, fontSize: 32.sp),
+                      style: getBoldStyle(
+                          color: ColorManager.primary, fontSize: 32.sp),
                     ),
                     Text(
                       'Welcome Back To Kharazah',
-                      style: getMediumStyle(color: ColorManager.primary.withOpacity(0.9), fontSize: 20.sp),
+                      style: getMediumStyle(
+                          color: ColorManager.primary.withOpacity(0.9),
+                          fontSize: 20.sp),
                     ),
                     SizedBox(height: 32.h),
                     IntlPhoneField(
                       decoration: InputDecoration(
-                        focusColor: ColorManager.primary,
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(2)),
-                          borderSide: BorderSide(color: ColorManager.primary,)
+                          borderSide: BorderSide(
+                            color: ColorManager.primary,
+                          ),
                         ),
                         border: OutlineInputBorder(),
                         labelText: 'Phone Number',
                       ),
-                      initialCountryCode: 'EG',
-                      style: getMediumStyle(color: ColorManager.primary, fontSize: 16.sp),
-                      dropdownTextStyle: getMediumStyle(color: ColorManager.primary, fontSize: 14.sp),
+                      initialCountryCode: 'SA',
+                      style: getMediumStyle(
+                          color: ColorManager.primary, fontSize: 16.sp),
+                      dropdownTextStyle: getMediumStyle(
+                          color: ColorManager.primary, fontSize: 14.sp),
                     ),
                     SizedBox(height: 32.h),
                     CustomBotton(
                       text: 'Login',
                       color: ColorManager.primary,
                       onTap: () {
-                        // todo: Go to Home Page
                         context.go(Routes.mainLayOut);
                       },
                       width: double.infinity,

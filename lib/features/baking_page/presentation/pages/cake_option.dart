@@ -1,32 +1,37 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:kharazah/core/utils/color_mananger.dart';
-import 'package:kharazah/core/utils/styles_manager.dart';
 
-class CakeOption extends StatefulWidget {
+import '../../../../core/utils/color_mananger.dart';
+import '../../../../core/utils/styles_manager.dart';
+
+class ShoeOption extends StatefulWidget {
   final Image image;
   final String title;
   final String price;
+  final String description;
+  final bool isSelected;  // إضافة خاصية isSelected
 
-  const CakeOption({
+  const ShoeOption({
     super.key,
     required this.title,
     required this.price,
     required this.image,
+    required this.isSelected,
+    required this.description
+    // تمرير isSelected
   });
 
   @override
-  State<CakeOption> createState() => _CakeOptionState();
+  State<ShoeOption> createState() => _CakeOptionState();
 }
 
-class _CakeOptionState extends State<CakeOption> {
+class _CakeOptionState extends State<ShoeOption> {
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: ColorManager.secondaryColor.withOpacity(0.7),
+        color: widget.isSelected ? ColorManager.secondaryColor.withOpacity(0.4) : Colors.transparent, // تغيير اللون إذا كان محدد
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
@@ -34,15 +39,27 @@ class _CakeOptionState extends State<CakeOption> {
         children: [
           widget.image,
           const SizedBox(height: 8),
-          Text(
-            widget.title,
-            style: getMediumStyle(color: ColorManager.white, fontSize: 14.sp),
+          Center(
+            child: Text(
+
+              widget.title,
+              style: getBoldStyle(color: ColorManager.secondaryColor, fontSize: 11.sp , ), // تغيير النص للون الأبيض عندما يكون المحدد
+            ),
           ),
           const SizedBox(height: 8),
-          Text(
-            widget.price,
-            style: getMediumStyle(color: ColorManager.primary, fontSize: 11.sp),
+          Center(
+            child: Text(
+              widget.description,
+              style: getMediumStyle(color: ColorManager.secondaryColor, fontSize: 8.sp,), // تغيير النص للون الأبيض عندما يكون المحدد
+            ),
           ),
+          Center(
+            child: Text(
+              widget.price,
+              style: getMediumStyle(color: ColorManager.secondaryColor, fontSize: 9.sp), // تغيير النص للون الأبيض عندما يكون المحدد
+            ),
+          ),
+
         ],
       ),
     );
